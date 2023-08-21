@@ -1,0 +1,409 @@
+[
+  {
+    "@id": "dtmi:azureiot:PhoneAsADevice;2",
+    "@type": "Interface",
+    "contents": [
+      {
+        "@type": "Component",
+        "displayName": {
+          "en": "Sensors"
+        },
+        "name": "sensors",
+        "schema": "dtmi:azureiot:PhoneSensors;1"
+      },
+      {
+        "@type": "Component",
+        "displayName": {
+          "en": "Device information"
+        },
+        "name": "device_info",
+        "schema": "dtmi:azure:DeviceManagement:DeviceInformation;1"
+      },
+      {
+        "@type": "Command",
+        "commandType": "synchronous",
+        "displayName": {
+          "en": "LightOn"
+        },
+        "name": "lightOn",
+        "request": {
+          "@type": [
+            "CommandPayload",
+            "Initialized"
+          ],
+          "displayName": {
+            "en": "Parameters"
+          },
+          "name": "parameters",
+          "initialValue": {
+            "duration": 3,
+            "pulses": 2
+          },
+          "schema": {
+            "@type": "Object",
+            "displayName": {
+              "en": "Object"
+            },
+            "fields": [
+              {
+                "displayName": {
+                  "en": "Duration"
+                },
+                "name": "duration",
+                "schema": "integer"
+              },
+              {
+                "displayName": {
+                  "en": "Pulses interval"
+                },
+                "name": "delay",
+                "schema": "integer"
+              },
+              {
+                "displayName": {
+                  "en": "Pulses"
+                },
+                "name": "pulses",
+                "schema": "integer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": [
+          "Property",
+          "StringValue"
+        ],
+        "displayName": {
+          "en": "Cloud property"
+        },
+        "name": "writeableProp",
+        "schema": "string",
+        "writable": true
+      },
+      {
+        "@type": [
+          "Property",
+          "StringValue"
+        ],
+        "displayName": {
+          "en": "Editable property"
+        },
+        "name": "readOnlyProp",
+        "schema": "string"
+      }
+    ],
+    "displayName": {
+      "en": "IoT Plug and Play mobile"
+    },
+    "@context": [
+      "dtmi:iotcentral:context;2",
+      "dtmi:dtdl:context;2"
+    ]
+  },
+  {
+    "@context": [
+      "dtmi:iotcentral:context;2",
+      "dtmi:dtdl:context;2"
+    ],
+    "@id": "dtmi:azureiot:PhoneSensors;1",
+    "@type": "Interface",
+    "contents": [
+      {
+        "@type": "Telemetry",
+        "comment": "Level percentage",
+        "displayName": {
+          "en": "Battery Level"
+        },
+        "name": "battery",
+        "schema": "integer"
+      },
+      {
+        "@type": [
+          "Telemetry",
+          "AccelerationVector"
+        ],
+        "displayName": {
+          "en": "Acceleration"
+        },
+        "name": "accelerometer",
+        "schema": "vector"
+      },
+      {
+        "@type": "Telemetry",
+        "displayName": {
+          "en": "Rotation"
+        },
+        "name": "gyroscope",
+        "schema": "vector"
+      },
+      {
+        "@type": "Telemetry",
+        "displayName": {
+          "en": "Magnetic induction"
+        },
+        "name": "magnetometer",
+        "schema": "vector"
+      },
+      {
+        "@type": [
+          "Telemetry",
+          "Pressure"
+        ],
+        "displayName": {
+          "en": "Pressure"
+        },
+        "name": "barometer",
+        "schema": "double",
+        "unit": "kilopascal"
+      },
+      {
+        "@type": [
+          "Telemetry",
+          "Location"
+        ],
+        "displayName": {
+          "en": "Location"
+        },
+        "name": "geolocation",
+        "schema": "geopoint"
+      },
+      {
+        "@type": "Command",
+        "commandType": "synchronous",
+        "displayName": {
+          "en": "Enable Sensors"
+        },
+        "name": "enableSensors",
+        "request": {
+          "@type": "CommandPayload",
+          "displayName": {
+            "en": "Sensor"
+          },
+          "name": "sensor",
+          "schema": {
+            "@type": "Object",
+            "displayName": {
+              "en": "Sensor"
+            },
+            "fields": [
+              {
+                "displayName": {
+                  "en": "Sensor"
+                },
+                "name": "sensor",
+                "schema": "dtmi:azureiot:PhoneSensors:SensorsEnum;1"
+              },
+              {
+                "displayName": {
+                  "en": "Enable"
+                },
+                "name": "enable",
+                "schema": "boolean"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "Command",
+        "commandType": "synchronous",
+        "displayName": {
+          "en": "Change Delivery Interval"
+        },
+        "name": "changeInterval",
+        "request": {
+          "@type": "CommandPayload",
+          "displayName": {
+            "en": "Payload"
+          },
+          "name": "payload",
+          "schema": {
+            "@type": "Object",
+            "displayName": {
+              "en": "Sensor"
+            },
+            "fields": [
+              {
+                "displayName": {
+                  "en": "Sensor"
+                },
+                "name": "sensor",
+                "schema": "dtmi:azureiot:PhoneSensors:SensorsEnum;1"
+              },
+              {
+                "displayName": {
+                  "en": "Interval"
+                },
+                "name": "interval",
+                "schema": "integer"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "displayName": {
+      "en": "Sensors"
+    },
+    "schemas": [
+      {
+        "@id": "dtmi:azureiot:PhoneSensors:SensorsEnum;1",
+        "@type": "Enum",
+        "displayName": {
+          "en": "Enum"
+        },
+        "enumValues": [
+          {
+            "displayName": {
+              "en": "Acceleration"
+            },
+            "enumValue": "accelerometer",
+            "name": "Acceleration"
+          },
+          {
+            "displayName": {
+              "en": "Pressure"
+            },
+            "enumValue": "barometer",
+            "name": "Pressure"
+          },
+          {
+            "displayName": {
+              "en": "Rotation"
+            },
+            "enumValue": "gyroscope",
+            "name": "Rotation"
+          },
+          {
+            "displayName": {
+              "en": "Magnetic Induction"
+            },
+            "enumValue": "magnetometer",
+            "name": "MagneticInduction"
+          },
+          {
+            "displayName": {
+              "en": "Location"
+            },
+            "enumValue": "geolocation",
+            "name": "Location"
+          },
+          {
+            "displayName": {
+              "en": "Battery Level"
+            },
+            "enumValue": "battery",
+            "name": "Battery"
+          }
+        ],
+        "valueSchema": "string"
+      }
+    ]
+  },
+  {
+    "@context": [
+      "dtmi:iotcentral:context;2",
+      "dtmi:dtdl:context;2"
+    ],
+    "@id": "dtmi:azure:DeviceManagement:DeviceInformation;1",
+    "@type": "Interface",
+    "contents": [
+      {
+        "@type": [
+          "Property",
+          "StringValue"
+        ],
+        "description": {
+          "en": "Company name of the device manufacturer. This could be the same as the name of the original equipment manufacturer (OEM). Ex. Contoso."
+        },
+        "displayName": {
+          "en": "Device manufacturer"
+        },
+        "name": "manufacturer",
+        "schema": "string"
+      },
+      {
+        "@type": "Property",
+        "description": {
+          "en": "Device model name or ID. Ex. Surface Book 2."
+        },
+        "displayName": {
+          "en": "Device model"
+        },
+        "name": "model",
+        "schema": "string"
+      },
+      {
+        "@type": "Property",
+        "description": {
+          "en": "Version of the software on your device. This could be the version of your firmware. Ex. 1.3.45"
+        },
+        "displayName": {
+          "en": "Software version"
+        },
+        "name": "swVersion",
+        "schema": "string"
+      },
+      {
+        "@type": "Property",
+        "description": {
+          "en": "Name of the operating system on the device. Ex. Windows 10 IoT Core."
+        },
+        "displayName": {
+          "en": "Operating system name"
+        },
+        "name": "osName",
+        "schema": "string"
+      },
+      {
+        "@type": "Property",
+        "description": {
+          "en": "Architecture of the processor on the device. Ex. x64 or ARM."
+        },
+        "displayName": {
+          "en": "Processor architecture"
+        },
+        "name": "processorArchitecture",
+        "schema": "string"
+      },
+      {
+        "@type": "Property",
+        "description": {
+          "en": "Name of the manufacturer of the processor on the device. Ex. Intel."
+        },
+        "displayName": {
+          "en": "Processor manufacturer"
+        },
+        "name": "processorManufacturer",
+        "schema": "string"
+      },
+      {
+        "@type": "Property",
+        "description": {
+          "en": "Total available storage on the device in kilobytes. Ex. 2048000 kilobytes."
+        },
+        "displayName": {
+          "en": "Total storage"
+        },
+        "name": "totalStorage",
+        "schema": "double"
+      },
+      {
+        "@type": "Property",
+        "description": {
+          "en": "Total available memory on the device in kilobytes. Ex. 256000 kilobytes."
+        },
+        "displayName": {
+          "en": "Total memory"
+        },
+        "name": "totalMemory",
+        "schema": "double"
+      }
+    ],
+    "displayName": {
+      "en": "Device Information"
+    }
+  }
+]
