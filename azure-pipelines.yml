@@ -1,15 +1,14 @@
 trigger:
 - master
-
-jobs:
-- job: BuildDockerImage
-  pool:
-    vmImage: 'ubuntu-latest'
-  steps:
-  - task: Docker@2
-    inputs:
-      containerRegistry: 'myregistry'
-      repository: 'my-iot-app'
-      command: 'buildAndPush'
-      Dockerfile: '**/Dockerfile'
-      tags: 'v1'
+variables:
+- group: keyvault
+- name: buildConfiguration
+  value: 'Release'
+steps:
+- task: PowerShell@2
+  displayName: 'IoT Central'
+  inputs:
+    filePath: 'PowerShell/IoTC-Task.ps1'
+    arguments: '-ApiToken "$(SharedAccessSignature sr=8ac62e76-09b2-4ca8-baa7-73033722c74b&sig=E2eLsjd4s1%2BNIYPp6eN%2F5jPqHh7sUCW05RO4EegQxAY%3D&skn=test&se=1724866905824)" -ConfigPath "Config/Production/IoTC Configuration" -AppName "iotcentraldevops" -ServicePrincipalPassword (ConvertTo-SecureString "$(SP-Password)" -AsPlainText -Force) -AppId "0e101cb9-5d7d-47d3-8159-f4cd79b0a04f" -KeyVault "DevOpsAccess" -TenantId "b3b2a559-1d1f-425d-8a76-3e6cd6d4947b"'
+    pwsh: true
+    failOnStderr:  true
